@@ -27,31 +27,31 @@ body {
   text-align: center;
 }
 
-/* BOTONES CENTRADOS */
-#yes, #no {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 16px 28px;
-  font-size: 20px;
+/* BOTONES */
+button {
+  width: 150px;
+  height: 54px;
+  font-size: 1.2rem;
   border-radius: 999px;
   border: none;
   cursor: pointer;
-  font-weight: bold;
   box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
 #yes {
   background: #ff4d6d;
   color: white;
-  top: 55%;
   z-index: 2;
+  position: relative;
 }
 
 #no {
-  background: #6c757d;
-  color: white;
-  top: 65%;
+  background: #f1f1f1;
+  color: #333;
+  position: fixed;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
   z-index: 3;
 }
 
