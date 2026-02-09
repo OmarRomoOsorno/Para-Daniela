@@ -53,7 +53,9 @@ function moveNoButton() {
   noBtn.style.top = y + "px";
 }
 
-noBtn.addEventListener("pointerdown", () => {
+// Aquí usamos pointerdown y prevenimos el "click" accidental
+noBtn.addEventListener("pointerdown", (event) => {
+  event.preventDefault(); // evita que se active el click o se presione el botón
   dodges++;
   moveNoButton();
 
