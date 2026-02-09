@@ -54,12 +54,11 @@ button {
 
 #no {
   position: absolute; /* se mueve libremente */
-  left: 50%;          
-  top: 50%;           
-  transform: translate(-50%, 0); /* centrado horizontal al inicio */
+  left: 50%;
   background: #f1f1f1;
   color: #333;
   z-index: 3;
+  transform: translateX(-50%);
 }
 
 /* CORAZONES */
