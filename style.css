@@ -19,7 +19,6 @@ body {
 }
 
 /* ---------- CORAZONES ---------- */
-
 .hearts {
   position: absolute;
   inset: 0;
@@ -30,9 +29,9 @@ body {
 .heart {
   position: absolute;
   bottom: -80px;
-  font-size: 48px;
-  animation: floatUp linear infinite;
+  font-size: 48px; /* corazones grandes */
   opacity: 0.9;
+  animation: floatUp linear infinite;
 }
 
 @keyframes floatUp {
@@ -47,7 +46,6 @@ body {
 }
 
 /* ---------- TEXTO ---------- */
-
 .question {
   margin-top: 14vh;
   font-size: 2.4rem;
@@ -56,7 +54,6 @@ body {
 }
 
 /* ---------- BOTONES ---------- */
-
 #yes,
 #no {
   position: absolute;
@@ -84,13 +81,12 @@ body {
   color: white;
 }
 
-/* efecto click bonito */
 button:active {
   transform: translateX(-50%) scale(0.96);
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
-/* evita efectos raros en iOS */
+/* Evita highlight raro en iOS */
 button {
   -webkit-tap-highlight-color: transparent;
 }
@@ -100,7 +96,6 @@ button:focus {
 }
 
 /* ---------- SORPRESA ---------- */
-
 .surprise {
   display: none;
   margin-top: 8vh;
@@ -114,7 +109,6 @@ button:focus {
 }
 
 /* ---------- CONFETI ---------- */
-
 #confetti {
   position: fixed;
   inset: 0;
