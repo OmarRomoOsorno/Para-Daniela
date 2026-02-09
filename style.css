@@ -8,7 +8,7 @@
 body {
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  background: linear-gradient(135deg, #ff5f8f, #ff8fb1);
 }
 
 .page {
@@ -29,9 +29,10 @@ body {
 
 .heart {
   position: absolute;
-  bottom: -60px;
-  font-size: 40px;
+  bottom: -80px;
+  font-size: 48px;
   animation: floatUp linear infinite;
+  opacity: 0.9;
 }
 
 @keyframes floatUp {
@@ -40,7 +41,7 @@ body {
     opacity: 1;
   }
   to {
-    transform: translateY(-120vh);
+    transform: translateY(-130vh);
     opacity: 0;
   }
 }
@@ -48,10 +49,10 @@ body {
 /* ---------- TEXTO ---------- */
 
 .question {
-  margin-top: 15vh;
-  font-size: 2.2rem;
+  margin-top: 14vh;
+  font-size: 2.4rem;
   color: white;
-  text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  text-shadow: 0 6px 15px rgba(0,0,0,0.25);
 }
 
 /* ---------- BOTONES ---------- */
@@ -61,27 +62,35 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  padding: 16px 30px;
-  font-size: 20px;
+  padding: 18px 36px;
+  font-size: 21px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
   font-weight: bold;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 #yes {
   top: 56%;
-  background: #ff4d6d;
+  background: linear-gradient(135deg, #ff2f68, #ff5f8f);
   color: white;
 }
 
 #no {
   top: 62%;
-  background: #6c757d;
+  background: linear-gradient(135deg, #6c757d, #8a8f94);
   color: white;
 }
 
-/* Evita highlight raro en iOS */
+/* efecto click bonito */
+button:active {
+  transform: translateX(-50%) scale(0.96);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* evita efectos raros en iOS */
 button {
   -webkit-tap-highlight-color: transparent;
 }
@@ -98,10 +107,10 @@ button:focus {
 }
 
 .surprise p {
-  font-size: 2.6rem;
+  font-size: 2.8rem;
   color: white;
   font-weight: bold;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-shadow: 0 6px 18px rgba(0,0,0,0.35);
 }
 
 /* ---------- CONFETI ---------- */
