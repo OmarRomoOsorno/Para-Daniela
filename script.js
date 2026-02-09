@@ -1,123 +1,113 @@
-const noBtn = document.getElementById("no");
-const yesBtn = document.getElementById("yes");
-const heartsContainer = document.querySelector(".hearts");
-const finalTextEl = document.getElementById("finalText");
-const canvas = document.getElementById("confetti");
-const ctx = canvas.getContext("2d");
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
 
-let dodges = 0;
+body {
+  margin: 0;
+}
+
+/* FONDO */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.question {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #d6336c;
+  text-align: center;
+}
+
+/* CONTENEDOR DE BOTONES */
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* BOTONES */
+button {
+  width: 150px;
+  height: 54px;
+  font-size: 1.2rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 2;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  position: absolute; /* se mueve libremente */
+  left: 50%;          /* centrado horizontal inicial */
+  top: 50%;           /* justo debajo del "Sí" */
+  transform: translate(-50%, 0);
+  background: #f1f1f1;
+  color: #333;
+  z-index: 3;
+}
 
 /* CORAZONES */
-let heartsInterval;
-
-function createHeart() {
-  const heart = document.createElement("span");
-  heart.textContent = "💖";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
-  heartsContainer.appendChild(heart);
-  setTimeout(() => heart.remove(), 9000);
+.hearts span {
+  position: absolute;
+  bottom: -40px;
+  font-size: 40px;
+  animation: floatUp linear infinite;
 }
 
-function startHearts() {
-  heartsInterval = setInterval(createHeart, 350);
-}
-
-function stopHearts() {
-  clearInterval(heartsInterval);
-}
-
-/* BOTÓN NO */
-function moveNoButton() {
-  const yesRect = yesBtn.getBoundingClientRect();
-  const noRect = noBtn.getBoundingClientRect();
-  const padding = 30;
-
-  let x, y, safe = false;
-
-  while (!safe) {
-    x = Math.random() * (window.innerWidth - noRect.width);
-    y = Math.random() * (window.innerHeight - noRect.height);
-
-    const overlap =
-      x < yesRect.right + padding &&
-      x + noRect.width > yesRect.left - padding &&
-      y < yesRect.bottom + padding &&
-      y + noRect.height > yesRect.top - padding;
-
-    if (!overlap) safe = true;
+@keyframes floatUp {
+  from {
+    transform: translateY(0);
+    opacity: 0;
   }
-
-  noBtn.style.position = "absolute";
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-
-// Aquí usamos pointerdown y prevenimos el "click" accidental
-noBtn.addEventListener("pointerdown", (event) => {
-  event.preventDefault(); // evita que se active el click o se presione el botón
-  dodges++;
-  moveNoButton();
-
-  if (dodges === 1) noBtn.textContent = "Que?";
-  if (dodges === 2) noBtn.textContent = "Porque?";
-  if (dodges === 3) noBtn.textContent = "Que te pacha";
-  if (dodges === 4) noBtn.textContent = "Andale";
-  if (dodges === 5) noBtn.textContent = "Por favorcito";
-  if (dodges === 6) noBtn.textContent = "Pls";
-});
-
-/* TEXTO LETRA POR LETRA */
-const finalMessage =
-  "Daniela, te amo. Haces cada día más bonito y quiero estar contigo toda la vida 💖";
-
-function typeText(text, el, speed = 45) {
-  let i = 0;
-  el.textContent = "";
-  const interval = setInterval(() => {
-    el.textContent += text[i];
-    i++;
-    if (i >= text.length) clearInterval(interval);
-  }, speed);
+  to {
+    transform: translateY(-120vh);
+    opacity: 1;
+  }
 }
 
 /* CONFETI */
-let confetti = [];
-
-function startConfetti() {
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-
-  confetti = Array.from({ length: 160 }, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 6 + 4,
-    d: Math.random() * 100,
-    color: `hsl(${Math.random() * 360},80%,60%)`
-  }));
-
-  requestAnimationFrame(drawConfetti);
+#confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
 }
 
-function drawConfetti() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  confetti.forEach(p => {
-    ctx.beginPath();
-    ctx.fillStyle = p.color;
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-    p.y += 2;
-    if (p.y > canvas.height) p.y = -10;
-  });
-  requestAnimationFrame(drawConfetti);
+/* TEXTO FINAL */
+.surprise {
+  margin-top: 2rem;
+  max-width: 340px;
+  text-align: center;
+  font-size: 2.2rem;
+  color: #d6336c;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(.2,1.4,.4,1);
 }
 
-/* ACEPTAR */
-yesBtn.addEventListener("click", () => {
-  document.body.classList.add("accepted");
-  stopHearts();
-  startConfetti();
-  typeText(finalMessage, finalTextEl);
-});
+.accepted .surprise {
+  opacity: 1;
+  transform: scale(1);
+}
 
-startHearts();
+.accepted #yes,
+.accepted #no,
+.accepted .question {
+  display: none;
+}
