@@ -67,22 +67,25 @@ body {
   border: none;
   cursor: pointer;
   font-weight: bold;
-  transition: transform 0.2s ease;
 }
 
 #yes {
-  top: 55%;
+  top: 56%;
   background: #ff4d6d;
   color: white;
 }
 
 #no {
-  top: 65%;
+  top: 62%;
   background: #6c757d;
   color: white;
 }
 
-/* Evita sombra azul de iOS */
+/* Evita highlight raro en iOS */
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 button:focus {
   outline: none;
 }
