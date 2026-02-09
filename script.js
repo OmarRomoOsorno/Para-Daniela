@@ -7,21 +7,27 @@ const ctx = canvas.getContext("2d");
 
 let dodges = 0;
 
-/* ---------- CORAZONES ---------- */
+/* CORAZONES */
+let heartsInterval;
+
 function createHeart() {
   const heart = document.createElement("span");
-  heart.classList.add("heart");
   heart.textContent = "💖";
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.animationDuration = 4 + Math.random() * 4 + "s";
   heartsContainer.appendChild(heart);
-
   setTimeout(() => heart.remove(), 9000);
 }
 
-let heartsInterval = setInterval(createHeart, 350);
+function startHearts() {
+  heartsInterval = setInterval(createHeart, 350);
+}
 
-/* ---------- BOTÓN NO ---------- */
+function stopHearts() {
+  clearInterval(heartsInterval);
+}
+
+/* BOTÓN NO */
 function moveNoButton() {
   const yesRect = yesBtn.getBoundingClientRect();
   const noRect = noBtn.getBoundingClientRect();
@@ -58,8 +64,9 @@ noBtn.addEventListener("pointerdown", () => {
   if (dodges === 6) noBtn.textContent = "Pls";
 });
 
-/* ---------- TEXTO LETRA POR LETRA ---------- */
-const finalMessage = "Daniela, te amo. Haces cada día más bonito y quiero estar contigo toda la vida 💖";
+/* TEXTO LETRA POR LETRA */
+const finalMessage =
+  "Daniela, te amo. Haces cada día más bonito y quiero estar contigo toda la vida 💖";
 
 function typeText(text, el, speed = 45) {
   let i = 0;
@@ -71,7 +78,7 @@ function typeText(text, el, speed = 45) {
   }, speed);
 }
 
-/* ---------- CONFETI ---------- */
+/* CONFETI */
 let confetti = [];
 
 function startConfetti() {
@@ -102,10 +109,12 @@ function drawConfetti() {
   requestAnimationFrame(drawConfetti);
 }
 
-/* ---------- BOTÓN SÍ ---------- */
+/* ACEPTAR */
 yesBtn.addEventListener("click", () => {
   document.body.classList.add("accepted");
-  clearInterval(heartsInterval); // detener corazones
+  stopHearts();
   startConfetti();
   typeText(finalMessage, finalTextEl);
 });
+
+startHearts();
