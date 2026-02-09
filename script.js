@@ -14,6 +14,7 @@ function createHeart() {
   const heart = document.createElement("span");
   heart.textContent = "💖";
   heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = `${30 + Math.random() * 20}px`;
   heart.style.animationDuration = 4 + Math.random() * 4 + "s";
   heartsContainer.appendChild(heart);
   setTimeout(() => heart.remove(), 9000);
@@ -50,6 +51,7 @@ function moveNoButton() {
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+  noBtn.style.transform = "translate(0,0)";
 }
 
 noBtn.addEventListener("pointerdown", () => {
