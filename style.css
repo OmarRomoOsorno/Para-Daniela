@@ -30,9 +30,7 @@ body {
 /* CONTENEDOR DE BOTONES */
 .buttons {
   display: flex;
-  flex-direction: column; /* se apilan verticalmente */
-  align-items: center;    /* centrados horizontalmente */
-  gap: 15px;              /* espacio entre botones */
+  justify-content: center;
   margin-bottom: 2rem;
 }
 
@@ -45,7 +43,7 @@ button {
   border: none;
   cursor: pointer;
   box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-  position: relative; /* necesario para el movimiento de "No" */
+  position: relative;
   z-index: 2;
 }
 
@@ -55,8 +53,13 @@ button {
 }
 
 #no {
+  position: absolute; /* se mueve libremente */
+  left: 50%;          /* centrado horizontal inicial */
+  top: 50%;           /* justo debajo del "Sí" */
+  transform: translate(-50%, 0);
   background: #f1f1f1;
   color: #333;
+  z-index: 3;
 }
 
 /* CORAZONES */
