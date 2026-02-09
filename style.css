@@ -1,116 +1,106 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  height: 100vh;
-  overflow: hidden;
-  background: linear-gradient(135deg, #ff5f8f, #ff8fb1);
+  margin: 0;
 }
 
+/* FONDO */
 .page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  width: 100%;
-  height: 100%;
+  overflow: hidden;
+}
+
+.question {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #d6336c;
   text-align: center;
 }
 
-/* ---------- CORAZONES ---------- */
-.hearts {
+/* BOTONES CENTRADOS */
+#yes, #no {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 16px 28px;
+  font-size: 20px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
-.heart {
+#yes {
+  background: #ff4d6d;
+  color: white;
+  top: 55%;
+  z-index: 2;
+}
+
+#no {
+  background: #6c757d;
+  color: white;
+  top: 65%;
+  z-index: 3;
+}
+
+/* CORAZONES */
+.hearts span {
   position: absolute;
-  bottom: -80px;
-  font-size: 48px; /* corazones grandes */
-  opacity: 0.9;
+  bottom: -40px;
+  font-size: 40px;
   animation: floatUp linear infinite;
 }
 
 @keyframes floatUp {
   from {
     transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-130vh);
     opacity: 0;
   }
+  to {
+    transform: translateY(-120vh);
+    opacity: 1;
+  }
 }
 
-/* ---------- TEXTO ---------- */
-.question {
-  margin-top: 14vh;
-  font-size: 2.4rem;
-  color: white;
-  text-shadow: 0 6px 15px rgba(0,0,0,0.25);
-}
-
-/* ---------- BOTONES ---------- */
-#yes,
-#no {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 18px 36px;
-  font-size: 21px;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-#yes {
-  top: 56%;
-  background: linear-gradient(135deg, #ff2f68, #ff5f8f);
-  color: white;
-}
-
-#no {
-  top: 62%;
-  background: linear-gradient(135deg, #6c757d, #8a8f94);
-  color: white;
-}
-
-button:active {
-  transform: translateX(-50%) scale(0.96);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-}
-
-/* Evita highlight raro en iOS */
-button {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button:focus {
-  outline: none;
-}
-
-/* ---------- SORPRESA ---------- */
-.surprise {
-  display: none;
-  margin-top: 8vh;
-}
-
-.surprise p {
-  font-size: 2.8rem;
-  color: white;
-  font-weight: bold;
-  text-shadow: 0 6px 18px rgba(0,0,0,0.35);
-}
-
-/* ---------- CONFETI ---------- */
+/* CONFETI */
 #confetti {
   position: fixed;
   inset: 0;
   pointer-events: none;
+  z-index: 10;
+}
+
+/* TEXTO FINAL */
+.surprise {
+  margin-top: 2rem;
+  max-width: 340px;
+  text-align: center;
+  font-size: 2.2rem;
+  color: #d6336c;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(.2,1.4,.4,1);
+}
+
+.accepted .surprise {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.accepted #yes,
+.accepted #no,
+.accepted .question {
+  display: none;
 }
