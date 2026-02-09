@@ -1,3 +1,5 @@
+const introScreen = document.getElementById("introScreen");
+const introBtn = document.getElementById("introBtn");
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const heartsContainer = document.querySelector(".hearts");
@@ -6,10 +8,9 @@ const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
 
 let dodges = 0;
-
-/* CORAZONES */
 let heartsInterval;
 
+/* CORAZONES */
 function createHeart() {
   const heart = document.createElement("span");
   heart.textContent = "💖";
@@ -27,25 +28,23 @@ function stopHearts() {
   clearInterval(heartsInterval);
 }
 
-/* Posicionar el botón NO debajo del botón Sí al inicio */
+/* Posicionar botón NO debajo del SÍ al inicio */
 function setInitialNoPosition() {
   const yesRect = yesBtn.getBoundingClientRect();
-  noBtn.style.top = `${yesRect.bottom + 10}px`; // 10px de espacio debajo
+  noBtn.style.top = `${yesRect.bottom + 10}px`;
 }
-setInitialNoPosition();
 
 /* BOTÓN NO */
 function moveNoButton() {
   const yesRect = yesBtn.getBoundingClientRect();
   const noRect = noBtn.getBoundingClientRect();
-  const padding = 10; // espacio mínimo entre botones
+  const padding = 10;
   let x, y, safe = false;
 
   while (!safe) {
     x = Math.random() * (window.innerWidth - noRect.width);
-    y = Math.random() * (window.innerHeight - noRect.height - 50) + 50; // evita top=0
+    y = Math.random() * (window.innerHeight - noRect.height - 50) + 50;
 
-    // Evita solapamiento con el botón Sí
     const overlap =
       x < yesRect.right + padding &&
       x + noRect.width > yesRect.left - padding &&
@@ -59,7 +58,6 @@ function moveNoButton() {
   noBtn.style.top = y + "px";
 }
 
-// pointerdown evita click accidental en móviles
 noBtn.addEventListener("pointerdown", (event) => {
   event.preventDefault();
   dodges++;
@@ -73,7 +71,7 @@ noBtn.addEventListener("pointerdown", (event) => {
   if (dodges === 6) noBtn.textContent = "Pls";
 });
 
-/* TEXTO LETRA POR LETRA */
+/* TEXTO FINAL */
 const finalMessage =
   "Daniela, te amo. Haces cada día más bonito, eres lo mejor que me a pasado y quiero estar contigo toda la vida 💖";
 
@@ -106,11 +104,11 @@ function startConfetti() {
 }
 
 function drawConfetti() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   confetti.forEach(p => {
     ctx.beginPath();
     ctx.fillStyle = p.color;
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fill();
     p.y += 2;
     if (p.y > canvas.height) p.y = -10;
@@ -126,4 +124,9 @@ yesBtn.addEventListener("click", () => {
   typeText(finalMessage, finalTextEl);
 });
 
-startHearts();
+/* INICIO: ocultar intro al presionar "Listo" */
+introBtn.addEventListener("click", () => {
+  introScreen.style.display = "none";
+  setInitialNoPosition();
+  startHearts();
+});
