@@ -27,6 +27,13 @@ function stopHearts() {
   clearInterval(heartsInterval);
 }
 
+/* Posicionar el botón NO debajo del botón Sí al inicio */
+function setInitialNoPosition() {
+  const yesRect = yesBtn.getBoundingClientRect();
+  noBtn.style.top = `${yesRect.bottom + 10}px`; // 10px de espacio debajo
+}
+setInitialNoPosition();
+
 /* BOTÓN NO */
 function moveNoButton() {
   const yesRect = yesBtn.getBoundingClientRect();
@@ -68,7 +75,7 @@ noBtn.addEventListener("pointerdown", (event) => {
 
 /* TEXTO LETRA POR LETRA */
 const finalMessage =
-  "Daniela, te amo. Haces cada día más bonito y quiero estar contigo toda la vida 💖";
+  "Daniela, te amo. Haces cada día más bonito, eres lo mejor que me a pasado y quiero estar contigo toda la vida 💖";
 
 function typeText(text, el, speed = 45) {
   let i = 0;
